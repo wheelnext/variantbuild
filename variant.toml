@@ -1,0 +1,20 @@
+requires = ["variantlib>=1.0.0", "variantbuild>=1.0.0"]
+env_list = ["manylinux-amd64-py3.13", "manylinux-amd64-py3.13-tars"]
+
+[env_run_base]
+description = "Build the Python Wheel under {env_name}"
+command = "python -m build --outdir dist/{env_name} --wheel"
+
+[env."manylinux-amd64-py3.13"]
+description = "Linux Build for AMD64 with Python 3.13 - Non Wheel Variant Build"
+use_variant = false
+
+[env."manylinux-amd64-py3.13-tars"]
+description = "Linux Build for AMD64 with Python 3.13 - Wheel Variant Build for TARS architecture"
+use_variant = true
+variant_metadata = [
+    "fictional_hw :: architecture :: tars",
+    "fictional_hw :: humor :: 10",
+]
+[env."manylinux-amd64-py3.13-tars".config_settings]
+"--global-option" = ["--compute_arch=tars", "--humor=10"]
